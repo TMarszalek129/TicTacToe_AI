@@ -4,16 +4,17 @@ from abc import ABC, abstractclassmethod
 from copy import deepcopy
 
 import numpy as np
+
 class TicTacToe(TwoPlayerGame):
     """The board positions are numbered as follows:
     1 2 3
     4 5 6
     7 8 9
     """
-    def __init__(self, players):
+    def __init__(self, players, first_player = 1):
         self.players = players
         self.board = [0 for i in range(9)]
-        self.current_player = 1  # player 1 starts.
+        self.current_player = first_player  # default player 1 starts.
         self.loser = None
         self.winner = None
 
@@ -120,4 +121,4 @@ class TicTacToe(TwoPlayerGame):
             self.loser = self.current_player
             self.winner = self.opponent_index
 
-        return history, self.loser, self.winner
+        return history, self.loser, self.winner, self.nmove-1
