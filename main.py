@@ -7,10 +7,10 @@ if __name__ == "__main__":
     import numpy as np
     import time
 
-    ai_algo = NegamaxAB(1, pruning=True)
-    ai_algo2 = NegamaxAB(10, pruning=True)
-    # ai_algo = NegamaxAB(6)
-    # ai_algo2 = NegamaxAB(6)
+    ai_algo = NegamaxAB(1, pruning=True, mode='expecti')
+    ai_algo2 = NegamaxAB(10, pruning=True, mode='expecti')
+    # ai_algo = Negamax(2)
+    # ai_algo2 = Negamax(8)
     wins = []
     times = []
     for i in range(100):
