@@ -4,9 +4,9 @@ import pickle
 LOWERBOUND, EXACT, UPPERBOUND = -1, 0, 1
 inf = float("infinity")
 
-def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf):
+def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf, pruning=True):
 
-    alphaOrig = alpha
+    # alphaOrig = alpha
 
     if (depth == 0) or game.is_over():
         return scoring(game) * (1 + 0.001 * depth)
@@ -28,19 +28,19 @@ def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf):
         game.make_move(move)
         game.switch_player()
 
-        move_alpha = -negamax(game, depth - 1, origDepth, scoring, -beta, -alpha)
+        value = -negamax(game, depth - 1, origDepth, scoring, -beta, -alpha, pruning)
 
         if unmake_move:
             game.switch_player()
             game.unmake_move(move)
 
         # bestValue = max( bestValue,  move_alpha )
-        if bestValue < move_alpha:
-            bestValue = move_alpha
+        if bestValue < value:
+            bestValue = value
             best_move = move
 
-        if alpha < move_alpha:
-            alpha = move_alpha
+        if alpha < value and pruning:
+            alpha = value
             # best_move = move
             if depth == origDepth:
                 state.ai_move = move
@@ -48,12 +48,12 @@ def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf):
                 break
 
     return bestValue
-class NegamaxAlphaBetaPruning(Negamax):
-    def __init__(self, depth, scoring=None, alpha=+inf, beta=-inf):
+class NegamaxAB(Negamax):
+    def __init__(self, depth, scoring=None, win_score = +inf, pruning=True):
         self.scoring = scoring
         self.depth = depth
-        self.alpha = alpha
-        self.beta = beta
+        self.win_score = win_score
+        self.pruning = pruning
 
     def __call__(self, game):
         """
@@ -69,7 +69,8 @@ class NegamaxAlphaBetaPruning(Negamax):
             self.depth,
             self.depth,
             scoring,
-            -self.alpha,
-            +self.beta,
+            -self.win_score,
+            +self.win_score,
+            self.pruning
         )
         return game.ai_move

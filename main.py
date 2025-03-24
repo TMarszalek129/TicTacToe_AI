@@ -1,21 +1,21 @@
 if __name__ == "__main__":
 
     from easyAI import AI_Player, Negamax
-    from NegamaxAlphaBetaPruning import NegamaxAlphaBetaPruning
+    from NegamaxAlphaBetaPruning import NegamaxAB
     from TicTacToe import TicTacToe
 
     import numpy as np
     import time
 
-    # ai_algo = Negamax(20)
-    # ai_algo2 = Negamax(1)
-    ai_algo = NegamaxAlphaBetaPruning(6)
-    ai_algo2 = NegamaxAlphaBetaPruning(6)
+    ai_algo = NegamaxAB(1, pruning=True)
+    ai_algo2 = NegamaxAB(10, pruning=True)
+    # ai_algo = NegamaxAB(6)
+    # ai_algo2 = NegamaxAB(6)
     wins = []
     times = []
     for i in range(100):
         start = time.time()
-        _, loser, winner, nmove = TicTacToe([AI_Player(ai_algo), AI_Player(ai_algo2)], first_player=1)\
+        _, loser, winner, nmove = TicTacToe([AI_Player(ai_algo), AI_Player(ai_algo2)], first_player=2)\
             .play(verbose=False, possible_loss=True)
         end = time.time()
         wins.append(winner)
