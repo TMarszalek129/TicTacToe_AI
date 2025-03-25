@@ -40,7 +40,7 @@ def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf, pruning=True
 
         if alpha < value and pruning:
             alpha = value
-            # best_move = move
+            best_move = move
             if depth == origDepth:
                 state.ai_move = move
             if alpha >= beta:
@@ -82,7 +82,7 @@ def expecti_megamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf, prun
 
             if alpha < value and pruning:
                 alpha = value
-                # best_move = move
+                best_move = move
                 if depth == origDepth:
                     state.ai_move = move
                 if alpha >= beta:
@@ -96,8 +96,6 @@ def expecti_megamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf, prun
                 game = state.copy()  # re-initialize move
 
             game.make_move(move)
-            # game.switch_player()
-            # game.unmake_move(move)
 
             value = -expecti_megamax(game, depth - 1, origDepth, scoring, -beta, -alpha, pruning, False)
 
