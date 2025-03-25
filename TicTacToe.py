@@ -5,6 +5,7 @@ from copy import deepcopy
 
 import numpy as np
 
+# Based on easyAI example
 class TicTacToe(TwoPlayerGame):
     """The board positions are numbered as follows:
     1 2 3

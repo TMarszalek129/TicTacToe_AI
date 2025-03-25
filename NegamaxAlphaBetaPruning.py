@@ -4,10 +4,8 @@ import numpy as np
 
 LOWERBOUND, EXACT, UPPERBOUND = -1, 0, 1
 inf = float("infinity")
-
+# Based on function from easyAI
 def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf, pruning=True):
-
-    # alphaOrig = alpha
 
     if (depth == 0) or game.is_over():
         return scoring(game) * (1 + 0.001 * depth)
