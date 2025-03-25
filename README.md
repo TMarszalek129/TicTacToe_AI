@@ -27,5 +27,5 @@ the other one continues.</p>
 <p>Expecti-minimax algorithm is used to calculate the best turn for each AI players.</p>
 <hr>
 
-<p>The results is printed in command prompt: </p>
+<p>The results is printed on the command prompt: </p>
 <img src="img.png">
